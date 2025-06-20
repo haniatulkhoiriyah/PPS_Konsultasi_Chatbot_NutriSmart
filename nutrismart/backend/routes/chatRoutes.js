@@ -22,13 +22,13 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.get('/history/:userId/:date', async (req, res) => {
-  const { userId, date } = req.params;
+router.get('/history/:userId', async (req, res) => {
+  const { userId } = req.params;
 
   try {
     const [results] = await db.query(
-      'SELECT question AS user_message, answer FROM chatbot_nutrisi WHERE user_id = ? AND date = ? ORDER BY id ASC',
-      [userId, date]
+      'SELECT question AS user_message, answer FROM chatbot_nutrisi WHERE user_id = ? ORDER BY id ASC',
+      [userId]
     );
     res.json(results);
   } catch (err) {
