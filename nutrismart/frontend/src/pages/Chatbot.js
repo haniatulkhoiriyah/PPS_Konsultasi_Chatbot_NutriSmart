@@ -46,8 +46,7 @@ export default function Chatbot() {
 
   const fetchHistory = useCallback(async () => {
     try {
-      const today = new Date().toISOString().split("T")[0];
-      const res = await axios.get(`/chat/history/${user_id}/${today}`);
+      const res = await axios.get(`/chat/history/${user_id}`);
       const historyData = res.data
         .map((item) => [
           { sender: "user", message: item.user_message },
@@ -57,7 +56,7 @@ export default function Chatbot() {
       setHistory(historyData);
     } catch (err) {
       console.error("Gagal load riwayat:", err);
-      setError("Terjadi kesalahan saat memuat riwayat.");
+      setError("Riwayat tidak tersedia.");
     }
   }, [user_id]);
 
