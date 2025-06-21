@@ -22,12 +22,13 @@ router.post('/', async (req, res) => {
   }
 });
 
+
 router.get('/history/:userId', async (req, res) => {
   const { userId } = req.params;
 
   try {
     const [results] = await db.query(
-      'SELECT question AS user_message, answer FROM chatbot_nutrisi WHERE user_id = ? ORDER BY id ASC',
+      'SELECT question AS user_message, answer, date FROM chatbot_nutrisi WHERE user_id = ? ORDER BY id ASC',
       [userId]
     );
     res.json(results);
@@ -36,6 +37,7 @@ router.get('/history/:userId', async (req, res) => {
     res.status(500).json({ error: 'Gagal ambil riwayat' });
   }
 });
+
 
 router.delete('/history', async (req, res) => {
   const { userId } = req.body;
